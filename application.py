@@ -1,4 +1,4 @@
-# Importation des bibliothèques nécessaires 
+# Importation des bibliothèques nécessaires
 import streamlit as st
 import pandas as pd
 import joblib
@@ -44,6 +44,10 @@ def home():
             </div>
         </div>
     """, unsafe_allow_html=True)
+
+# Fonction pour afficher la page RC2j
+import streamlit as st
+import pandas as pd
 
 # Fonction pour afficher la page RC2j
 def rc2_page():
@@ -96,7 +100,7 @@ def rc2_page():
 
         if submit_button:
             input_data = pd.DataFrame({
-                'PAF CV': [PAF_CV],
+                'PAF CV ': [PAF_CV],
                 'SiO2': [SiO2],
                 'Al2O3': [Al2O3],
                 'Fe2O3': [Fe2O3],
@@ -105,7 +109,7 @@ def rc2_page():
                 'SO3 cl': [SO3_cl],
                 'K2O': [K2O],
                 'PAF cl': [PAF_cl],
-                'CaOl': [CaOl],
+                'CaOl ': [CaOl],
                 'C3A': [C3A],
                 'C3S': [C3S],
                 'SO3 g': [SO3_g],
@@ -173,7 +177,7 @@ def rc28_page():
 
         if submit_button:
             input_data = pd.DataFrame({
-                'PAF CV': [PAF_CV],
+                'PAF CV ': [PAF_CV],
                 'SiO2': [SiO2],
                 'Al2O3': [Al2O3],
                 'Fe2O3': [Fe2O3],
@@ -182,7 +186,7 @@ def rc28_page():
                 'SO3 cl': [SO3_cl],
                 'K2O': [K2O],
                 'PAF cl': [PAF_cl],
-                'CaOl': [CaOl],
+                'CaOl ': [CaOl],
                 'C3A': [C3A],
                 'C3S': [C3S],
                 'SO3 g': [SO3_g],
@@ -195,18 +199,150 @@ def rc28_page():
             prediction = rc28_model.predict(input_data)
 
             if prediction[0] == 1:
-                st.markdown("<p class='custom-success'>✅ Vu que la résistance RC28j dépasse 33 MPa, alors votre produit est de bonne qualité.</p>", unsafe_allow_html=True)
+                st.markdown("<p class='custom-success'>✅ Vu que la résistance RC28j varie entre 34 et 55 MPa, alors votre produit est de bonne qualité.</p>", unsafe_allow_html=True)
             else:
-                st.markdown("<p class='custom-error'>❌ Vu que la résistance RC28j est inférieure à 33 MPa, alors votre produit n'est pas de bonne qualité.</p>", unsafe_allow_html=True)
+                st.markdown("<p class='custom-error'>❌ Vu que la résistance RC28j est inférieure à 34 MPa, alors votre produit n'est pas de bonne qualité.</p>", unsafe_allow_html=True)
 
-# Fonction pour afficher la page d'informations techniques
-def info_page():
+def info_tech_page():
+    st.title("📋 Informations Techniques")
+
+    # Utilisation du Markdown avec HTML pour ajouter des couleurs
     st.markdown("""
-        <h1 style='text-align: center; color: #2F4F4F;'>Informations Techniques</h1>
-        <p>Bienvenue dans la section d'informations techniques. Ici, vous trouverez des détails importants sur le processus de classification et sur les produits cimentiers.</p>
-        """, unsafe_allow_html=True)
+        <style>
+        .info-box {
+            background-color: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .info-box h4 {
+            color: #007bff;
+        }
+        .info-box p {
+            color: #495057;
+        }
+        .highlight {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .metrics-table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .metrics-table th, .metrics-table td {
+            border: 1px solid #e0e0e0;
+            padding: 10px;
+            text-align: left;
+        }
+        .metrics-table th {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .metrics-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .metrics-table td {
+            color: #495057;
+        }
+        </style>
+        <div class="info-box">
+            <h4>Description des Paramètres :</h4>
+            <p><span class="highlight">PAF CV</span> : Perte au feu du cendre volante, mesurant la réduction du poids due à la décomposition thermique.</p>
+            <p><span class="highlight">SiO2</span> : Dioxyde de silicium, un composant clé dans la production de ciment, essentiel pour la résistance mécanique du produit fini.</p>
+            <p><span class="highlight">Al2O3</span> : Oxyde d'aluminium, utilisé pour réguler le temps de prise du ciment et améliorer ses propriétés mécaniques.</p>
+            <p><span class="highlight">Fe2O3</span> : Oxyde de fer, qui influence la couleur et certaines caractéristiques chimiques du clinker.</p>
+            <p><span class="highlight">CaO</span> : Oxyde de calcium, un composant majeur dérivé du calcaire, responsable de la formation de silicates de calcium, principaux contributeurs à la résistance du ciment.</p>
+            <p><span class="highlight">MgO</span> : Oxyde de magnésium, un composé secondaire dont une concentration élevée peut affecter les propriétés du ciment.</p>
+            <p><span class="highlight">SO3 cl</span> : Oxyde de soufre dans le clinker, reflétant la quantité de soufre issue du combustible utilisé.</p>
+            <p><span class="highlight">K2O</span> : Oxyde de potassium, un alkali qui affecte la formation des phases dans le clinker et la réactivité du ciment.</p>
+            <p><span class="highlight">PAF cl</span> : .</p>
+            <p><span class="highlight">CaOl</span> : Oxyde de calcium libre, représentant la quantité de chaux non réagit, signe d'une cuisson incomplète.</p>
+            <p><span class="highlight">C3A</span> : Tricalcium aluminate, responsable de la prise rapide du ciment et de sa résistance initiale.</p>
+            <p><span class="highlight">C3S</span> : Tricalcium silicate, principal facteur de la résistance mécanique à court terme (2 à 7 jours) du ciment.</p>
+            <p><span class="highlight">SO3 g</span> : Oxyde de soufre dans le gypse, régulateur du temps de prise du ciment.</p>
+            <p><span class="highlight">%clinker</span> : Pourcentage de clinker dans le mélange cimentaire, principal constituant réactif du ciment.</p>
+            <p><span class="highlight">% CV</span> : Pourcentage du cendre volante.</p>
+            <p><span class="highlight">% gypse</span> : Pourcentage de gypse ajouté, utilisé pour réguler le temps de prise du ciment.</p>
+            <p><span class="highlight">Refus 40 μm</span> : Proportion des particules supérieures à 40 microns après broyage, affectant la finesse du ciment et sa réactivité.</p>
+        </div>
+    """, unsafe_allow_html=True)
 
-# Affichage de la page sélectionnée
+    st.subheader("Classification avec RC2j")
+    st.write("""
+        La classification des produits cimentiers est réalisée à l'aide de l'algorithme Random Forest, qui a démontré les meilleures performances pour cette tâche.
+    """)
+
+    # Tableau des performances du modèle Random Forest pour RC2j
+    st.markdown("""
+    <table class="metrics-table">
+        <thead>
+            <tr>
+                <th>Métrique</th>
+                <th>Valeur</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Précision</strong></td>
+                <td>0.8214</td>
+            </tr>
+            <tr>
+                <td><strong>Précision</strong></td>
+                <td>0.8424</td>
+            </tr>
+            <tr>
+                <td><strong>F1-score</strong></td>
+                <td>0.8973</td>
+            </tr>
+        </tbody>
+    </table>
+    """, unsafe_allow_html=True)
+
+    # Affichage de l'image de la matrice de confusion avec un titre
+    st.image("matice_confusion_2.png", caption="Matrice de confusion pour le modèle Random Forest", use_column_width=True)
+    st.image("courbe_roc_2.png", caption="La courbe de ROC pour le modèle Random Forest", use_column_width=True)
+
+    st.subheader("Classification avec RC28j")
+    st.write("""
+        La classification des produits cimentiers pour RC28j est également réalisée à l'aide de l'algorithme Random Forest, en raison de ses excellentes performances.
+    """)
+
+    # Tableau des performances du modèle Random Forest pour RC28j
+    st.markdown("""
+    <table class="metrics-table">
+        <thead>
+            <tr>
+                <th>Métrique</th>
+                <th>Valeur</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Précision</strong></td>
+                <td>0.9464</td>
+            </tr>
+            <tr>
+                <td><strong>Précision</strong></td>
+                <td>0.9478</td>
+            </tr>
+            <tr>
+                <td><strong>F1-score</strong></td>
+                <td>0.9724</td>
+            </tr>
+        </tbody>
+    </table>
+    """, unsafe_allow_html=True)
+
+    # Affichage de l'image de la matrice de confusion pour RC28j avec un titre
+    st.image("matice_confusion_28.png", caption="Matrice de confusion pour le modèle Random Forest (RC28j)", use_column_width=True)
+    st.image("roc.png", caption="La courbe de ROC pour le modèle Random Forest (RC28j)", use_column_width=True)
+
+
+
+
+# Affichage du contenu en fonction du choix de l'utilisateur
 if page == '🏠 Accueil':
     home()
 elif page == '⚙️ Classification avec RC2j':
@@ -214,4 +350,4 @@ elif page == '⚙️ Classification avec RC2j':
 elif page == '⚙️ Classification avec RC28j':
     rc28_page()
 elif page == '📋 Informations Techniques':
-    info_page()
+    info_tech_page()
