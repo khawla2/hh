@@ -257,7 +257,7 @@ def info_tech_page():
             <p><span class="highlight">MgO</span> : Oxyde de magnésium, un composé secondaire dont une concentration élevée peut affecter les propriétés du ciment.</p>
             <p><span class="highlight">SO3 cl</span> : Oxyde de soufre dans le clinker, reflétant la quantité de soufre issue du combustible utilisé.</p>
             <p><span class="highlight">K2O</span> : Oxyde de potassium, un alkali qui affecte la formation des phases dans le clinker et la réactivité du ciment.</p>
-            <p><span class="highlight">PAF cl</span> : .</p>
+            <p><span class="highlight">PAF cl</span> :La perte au feu du clinker est un paramètre qui mesure la quantité de matière volatile qui est libérée lorsque le clinker est chauffé à une température élevée, généralement autour de 1000-1100 °C .</p>
             <p><span class="highlight">CaOl</span> : Oxyde de calcium libre, représentant la quantité de chaux non réagit, signe d'une cuisson incomplète.</p>
             <p><span class="highlight">C3A</span> : Tricalcium aluminate, responsable de la prise rapide du ciment et de sa résistance initiale.</p>
             <p><span class="highlight">C3S</span> : Tricalcium silicate, principal facteur de la résistance mécanique à court terme (2 à 7 jours) du ciment.</p>
